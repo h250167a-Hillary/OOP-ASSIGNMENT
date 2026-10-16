@@ -1,0 +1,29 @@
+=== Deposits (including an invalid one) ===
+[SAV-001] Deposited 100.00. New balance: 600.00
+[CUR-001] Deposit rejected: amount must be positive.
+
+=== Withdrawals through Account references ===
+[SAV-001] Withdrew 450.00. New balance: 150.00
+[CUR-001] Withdrew 400.00. New balance: -200.00 (account is in overdraft)
+[SAV-002] Withdrawal of 100.00 rejected: balance would fall below the minimum of 100.00.
+[CUR-002] Withdrawal of 200.00 rejected: exceeds overdraft limit of 100.00.
+
+=== End of month processing ===
+[SAV-001] Savings end of month: interest 3.00 added. New balance: 153.00
+[CUR-001] Current end of month: maintenance fee 5.00 deducted. New balance: -205.00
+[SAV-002] Savings end of month: interest 3.00 added. New balance: 153.00
+[CUR-002] Current end of month: maintenance fee 5.00 deducted. New balance: 45.00
+
+=== Final balances ===
+SAV-001: 153.00
+CUR-001: -205.00
+SAV-002: 153.00
+CUR-002: 45.00
+
+=== Edge cases ===
+-- Savings withdrawal rejected (below minimum balance) --
+[SAV-EDGE] Withdrawal of 250.00 rejected: balance would fall below the minimum of 100.00.
+-- Current account goes into overdraft within its limit --
+[CUR-EDGE] Withdrew 400.00. New balance: -300.00 (account is in overdraft)
+-- Current withdrawal rejected (beyond overdraft limit) --
+[CUR-EDGE] Withdrawal of 300.00 rejected: exceeds overdraft limit of 500.00.
